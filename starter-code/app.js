@@ -13,6 +13,8 @@ app.set('view engine', 'ejs');
 
 // app.set('views');
 
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({extended:true}));
 
 app.use(expressLayouts);
 
@@ -58,5 +60,25 @@ app.get('/jokeCategoryPage', (req, res, next)=>{
     });
   });
 });
+
+app.get('/search', (req, res, next)=>{
+  res.render('search.ejs');
+});
+
+app.get('/search-result', (req, res, next)=>{
+  const keyword = req.query.searchTerm;
+
+  client.search(keyword).then((jokeObject)=>{
+    const jokeArray=jokeObject.items;
+
+    res.render('search-final.ejs', {
+      jokeArray: jokeArray,
+      keyword : keyword,
+    });
+  });
+});
+
+
+
 
 app.listen(3000);

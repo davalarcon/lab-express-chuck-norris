@@ -1,0 +1,12 @@
+<h2>Results</h2>
+
+<p>The Keyword you searche for: <%= keyword %> </p>
+
+<ol>
+<%  jokeArray.forEach((someJoke)=>{ %>
+    <li>
+    <%=  someJoke.value %>
+    </li>
+<%  }) %>
+
+</ol>
